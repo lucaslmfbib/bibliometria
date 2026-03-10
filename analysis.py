@@ -10,7 +10,7 @@ def _split_authors(cell: str) -> List[str]:
     text = str(cell).strip()
     if not text or text.lower() in {"nan", "none"}:
         return []
-    # autores geralmente separados por ";" (Scopus/WoS) ou "," em alguns exports
+    # autores geralmente separados por ";" ou "," em exports bibliograficos
     if ";" in text:
         return [a.strip() for a in text.split(";") if a.strip()]
     return [a.strip() for a in text.split(",") if a.strip()]
