@@ -1,6 +1,6 @@
 # Bibliometria
 
-Ferramenta para executar análises bibliométricas a partir de arquivos `CSV` ou `Excel` (`.xls`/`.xlsx`).
+Ferramenta para executar análises bibliométricas a partir de arquivos `CSV`, `Excel` (`.xls`/`.xlsx`) ou `BibTeX` (`.bib`).
 
 ## Entrada esperada
 
@@ -25,6 +25,12 @@ Ou para CSV:
 
 ```bash
 python3 -m bibliometria.cli --input "/caminho/dados.csv" --encoding "utf-8"
+```
+
+Ou para BibTeX:
+
+```bash
+python3 -m bibliometria.cli --input "/caminho/referencias.bib"
 ```
 
 ## Saídas geradas

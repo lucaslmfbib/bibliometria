@@ -89,8 +89,8 @@ def _run_analysis(
 
 def main():
     st.set_page_config(page_title="Bibliometria", layout="wide")
-    st.title("Analise Bibliometrica com CSV ou Excel")
-    st.caption("Envie um arquivo e gere tabelas, graficos e grafo de coautoria.")
+    st.title("Analise Bibliometrica com CSV, Excel ou BibTeX")
+    st.caption("Envie um arquivo (.csv, .xlsx ou .bib) e gere tabelas, graficos e grafo de coautoria.")
 
     with st.sidebar:
         st.header("Configuracoes")
@@ -115,8 +115,8 @@ def main():
 
     uploaded_file = st.file_uploader(
         "Arquivo bibliografico",
-        type=["csv", "xls", "xlsx"],
-        help="Aceita CSV, XLS e XLSX.",
+        type=["csv", "xls", "xlsx", "bib"],
+        help="Aceita CSV, XLS, XLSX e BibTeX (.bib).",
     )
 
     run_button = st.button("Rodar analise", type="primary", disabled=uploaded_file is None)

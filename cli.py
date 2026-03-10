@@ -8,12 +8,12 @@ from .pipeline import run_bibliometric_analysis
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="bibliometria",
-        description="Executa análises bibliométricas a partir de CSV/XLSX.",
+        description="Executa análises bibliométricas a partir de CSV/XLSX/BibTeX.",
     )
     parser.add_argument(
         "--input",
         required=True,
-        help="Caminho do arquivo de entrada (.csv, .xls ou .xlsx).",
+        help="Caminho do arquivo de entrada (.csv, .xls, .xlsx ou .bib).",
     )
     parser.add_argument(
         "--output-dir",
