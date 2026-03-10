@@ -87,8 +87,8 @@ pip install streamlit
 2. Acesse [https://share.streamlit.io](https://share.streamlit.io) e conecte sua conta GitHub.
 3. Clique em `New app`.
 4. Selecione:
-   - Repositório: `lucaslmfbib/Bibliometria-scopus`
-   - Branch: a branch publicada (ex.: `main` ou `codex/streamlit-graficos`)
+   - Repositório: `lucaslmfbib/bibliometria`
+   - Branch: `main`
    - Main file path: `streamlit_app.py`
 5. Clique em `Deploy`.
 
