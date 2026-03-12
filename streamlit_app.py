@@ -129,6 +129,7 @@ def main():
         links_line = " | ".join(f"[{label}]({url})" for label, url in social_links.items())
         st.markdown(links_line)
     st.title("Analise Bibliometrica com CSV, Excel ou BibTeX")
+    st.caption("Elaborado pelo Bibliotecario Lucas Martins")
     st.caption("Envie um arquivo (.csv, .xlsx ou .bib) e gere tabelas, graficos e grafo de coautoria.")
 
     with st.sidebar:
