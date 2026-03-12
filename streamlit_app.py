@@ -5,6 +5,7 @@ import json
 import sys
 import tempfile
 import zipfile
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any, Dict
 
@@ -19,6 +20,12 @@ if str(PARENT_DIR) not in sys.path:
     sys.path.insert(0, str(PARENT_DIR))
 
 from bibliometria.pipeline import run_bibliometric_analysis
+
+TOP_SOCIAL_LINKS = {
+    "LinkedIn": "https://www.linkedin.com/in/lucaslmf/",
+    "GitHub": "https://github.com/lucaslmfbib",
+    "Instagram": "https://www.instagram.com/lucaslmf_/",
+}
 
 
 def _parse_sheet_name(raw_value: str):
@@ -35,6 +42,34 @@ def _build_zip(output_dir: Path) -> bytes:
             if file_path.is_file():
                 archive.write(file_path, arcname=file_path.name)
     return buffer.getvalue()
+
+
+def _get_social_links() -> Dict[str, str]:
+    links: Dict[str, str] = dict(TOP_SOCIAL_LINKS)
+    labels = {
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "x": "X",
+        "twitter": "Twitter",
+        "youtube": "YouTube",
+        "github": "GitHub",
+        "website": "Site",
+    }
+
+    try:
+        configured = st.secrets.get("social_links", {})
+    except Exception:
+        configured = {}
+
+    if not isinstance(configured, Mapping):
+        configured = {}
+
+    for key, label in labels.items():
+        value = configured.get(key)
+        if isinstance(value, str) and value.strip().startswith(("http://", "https://")):
+            links[label] = value.strip()
+
+    return links
 
 
 def _run_analysis(
@@ -89,6 +124,10 @@ def _run_analysis(
 
 def main():
     st.set_page_config(page_title="Bibliometria", layout="wide")
+    social_links = _get_social_links()
+    if social_links:
+        links_line = " | ".join(f"[{label}]({url})" for label, url in social_links.items())
+        st.markdown(links_line)
     st.title("Analise Bibliometrica com CSV, Excel ou BibTeX")
     st.caption("Envie um arquivo (.csv, .xlsx ou .bib) e gere tabelas, graficos e grafo de coautoria.")
 
@@ -112,6 +151,12 @@ def main():
             value=1,
             step=1,
         )
+
+        if social_links:
+            st.divider()
+            st.subheader("Minhas redes")
+            for label, url in social_links.items():
+                st.markdown(f"- [{label}]({url})")
 
     uploaded_file = st.file_uploader(
         "Arquivo bibliografico",
